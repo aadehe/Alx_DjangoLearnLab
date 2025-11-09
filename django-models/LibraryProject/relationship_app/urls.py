@@ -2,7 +2,7 @@ from django.contrib.auth.views import LoginView, LogoutView
 from django.urls import path
 
 from . import views
-from .views import list_books, LibraryDetailView, add_book, edit_book, delete_book
+from .views import list_books, LibraryDetailView
 
 urlpatterns = [
     path('books/', list_books, name='list_books'),  # Function-Based View
@@ -20,7 +20,8 @@ urlpatterns = [
     path('member-view/', views.member_view, name='member_view'),
 
 # Book management URLs
-    path('books/add/', add_book, name='add_book'),
-    path('books/edit/<int:book_id>/', edit_book, name='edit_book'),
-    path('books/delete/<int:book_id>/', delete_book, name='delete_book'),
+# Book permission-based views
+    path('add_book/', views.add_book, name='add_book'),
+    path('edit_book/<int:book_id>/', views.edit_book, name='edit_book'),
+    path('delete_book/<int:book_id>/', views.delete_book, name='delete_book'),
 ]
