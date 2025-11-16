@@ -134,3 +134,6 @@ X_FRAME_OPTIONS = "DENY"
 # Enforce HTTPS for cookies (set True in production)
 SESSION_COOKIE_SECURE = True
 CSRF_COOKIE_SECURE = True
+# 1. Force all traffic to use HTTPS.
+# Redirects all incoming HTTP requests to HTTPS automatically.
+SECURE_SSL_REDIRECT = True
