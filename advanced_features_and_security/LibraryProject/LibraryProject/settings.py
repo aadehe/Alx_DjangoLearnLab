@@ -145,3 +145,11 @@ SECURE_HSTS_INCLUDE_SUBDOMAINS = True
 
 # Allows site to be submitted to browser preload lists (Chrome preload list)
 SECURE_HSTS_PRELOAD = True
+
+#############################################
+# SECURITY: PROXY SSL HEADER
+#############################################
+
+# This tells Django which header indicates the request came over HTTPS.
+# Commonly used with Nginx, Apache, Gunicorn, and cloud platforms.
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
