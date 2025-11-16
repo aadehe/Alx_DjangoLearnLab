@@ -2,7 +2,10 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import permission_required
 from .models import Article, Book
 from .forms import ExampleForm
-
+from django.shortcuts import render
+from django.db.models import Q
+from .models import Book
+from .forms import SearchForm
 
 def book_list(request):
     """
@@ -61,3 +64,31 @@ def article_delete(request, pk):
     article = get_object_or_404(Article, pk=pk)
     article.delete()
     return redirect("article_list")
+
+
+
+
+
+def secure_book_search(request):
+    """
+    Secure search view that prevents SQL injection by:
+    - Using Django forms for validation
+    - Relying on Django ORM for parameterized queries
+    """
+
+    form = SearchForm(request.GET or None)
+    books = Book.objects.none()
+
+    if form.is_valid():
+        query = form.cleaned_data.get("query")
+
+        # Safe ORM filtering (no string concatenation)
+        books = Book.objects.filter(
+            Q(title__icontains=query) |
+            Q(author__icontains=query)
+        )
+
+    return render(request, "bookshelf/book_list.html", {
+        "books": books,
+        "form": form
+    })
