@@ -137,3 +137,11 @@ CSRF_COOKIE_SECURE = True
 # 1. Force all traffic to use HTTPS.
 # Redirects all incoming HTTP requests to HTTPS automatically.
 SECURE_SSL_REDIRECT = True
+# 2. HTTP Strict Transport Security (HSTS)
+# Tells browsers to only connect via HTTPS for one year (31536000 seconds).
+SECURE_HSTS_SECONDS = 31536000
+# Apply HSTS to all subdomains
+SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+
+# Allows site to be submitted to browser preload lists (Chrome preload list)
+SECURE_HSTS_PRELOAD = True
