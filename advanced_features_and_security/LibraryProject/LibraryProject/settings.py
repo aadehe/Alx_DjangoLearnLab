@@ -23,7 +23,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-j75ug8o+9hrz^=0*p^)y#lnr4n$$@x88s!b2=#kov3!u^nl25b'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = []
 
@@ -124,3 +124,13 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTH_USER_MODEL = 'bookshelf.CustomUser'
+
+# Prevent browsers from MIME-sniffing the content type
+SECURE_CONTENT_TYPE_NOSNIFF = True
+# Enable browser XSS filter
+SECURE_BROWSER_XSS_FILTER = True
+# Prevent your site from being displayed in frames (defends against clickjacking)
+X_FRAME_OPTIONS = "DENY"
+# Enforce HTTPS for cookies (set True in production)
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = True
