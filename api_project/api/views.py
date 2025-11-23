@@ -16,7 +16,7 @@ class BookViewSet(viewsets.ModelViewSet):
     queryset = Book.objects.all()
     serializer_class = BookSerializer
     authentication_classes = [authentication.TokenAuthentication]
-    permission_classes = [AllowAny]
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
 
 
 
