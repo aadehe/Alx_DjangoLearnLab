@@ -1,7 +1,8 @@
 from django.shortcuts import render
-from rest_framework import generics, permissions
+from rest_framework import generics
 from models import Book
 from serializers import BookSerializer
+from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAuthenticated
 
 
 # Create your views here.
@@ -15,7 +16,7 @@ from serializers import BookSerializer
 class BookListView(generics.ListAPIView):
     queryset = Book.objects.all()
     serializer_class = BookSerializer
-    permission_classes = [permissions.AllowAny] # Read-only access for all
+    permission_classes = [IsAuthenticatedOrReadOnly] # Read-only access for all
 
 # ---------------------------------------------------------
 # BookDetailView
@@ -26,7 +27,7 @@ class BookListView(generics.ListAPIView):
 class BookDetailView(generics.RetrieveAPIView):
     queryset = Book.objects.all()
     serializer_class = BookSerializer
-    permission_classes = [permissions.AllowAny]  # Read-only access for all
+    permission_classes = [IsAuthenticatedOrReadOnly]  # Read-only access for all
 
 # ---------------------------------------------------------
 # BookCreateView
@@ -39,7 +40,7 @@ class BookDetailView(generics.RetrieveAPIView):
 class BookCreateView(generics.CreateAPIView):
     queryset = Book.objects.all()
     serializer_class = BookSerializer
-    permission_classes = [permissions.IsAuthenticated]
+    permission_classes = [IsAuthenticated]
 
     # Custom behavior: Example log before save
     def perform_create(self, serializer):
@@ -57,7 +58,7 @@ class BookCreateView(generics.CreateAPIView):
 class BookUpdateView(generics.RetrieveUpdateAPIView):
     queryset = Book.objects.all()
     serializer_class = BookSerializer
-    permission_classes = [permissions.IsAuthenticated]
+    permission_classes = [IsAuthenticated]
 
     def perform_update(self, serializer):
         print(f"Updating book ID={self.kwargs['pk']}")
@@ -72,7 +73,7 @@ class BookUpdateView(generics.RetrieveUpdateAPIView):
 class BookDeleteView(generics.DestroyAPIView):
     queryset = Book.objects.all()
     serializer_class = BookSerializer
-    permission_classes = [permissions.IsAuthenticated]
+    permission_classes = [IsAuthenticated]
 
 
 
