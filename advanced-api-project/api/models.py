@@ -1,6 +1,11 @@
 from django.db import models
 
 # Create your models here.
+# -----------------------------
+# Author Model
+# -----------------------------
+# Stores a single author's name.
+# One author can have multiple related books.
 class Author(models.Model):
     name = models.CharField(max_length=100)
 
@@ -8,11 +13,17 @@ class Author(models.Model):
         return self.name
 
 
+# -----------------------------
+# Book Model
+# -----------------------------
+# Represents one book written by an author.
+# The `author` ForeignKey establishes a one-to-many
+# relationship from Author → Book.
 class Book(models.Model):
     title = models.CharField(max_length=100)
     publication_year = models.IntegerField()
     # One-to-many: One Author → Many Books
-    authors = models.ForeignKey(
+    author = models.ForeignKey(
         Author,
         on_delete=models.PROTECT,
         related_name='books'
