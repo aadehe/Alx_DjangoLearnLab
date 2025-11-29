@@ -11,7 +11,12 @@ class Author(models.Model):
 class Book(models.Model):
     title = models.CharField(max_length=100)
     publication_year = models.IntegerField()
-    authors = models.ForeignKey(Author, on_delete=models.CASCADE)
+    # One-to-many: One Author → Many Books
+    authors = models.ForeignKey(
+        Author,
+        on_delete=models.PROTECT,
+        related_name='books'
+    )
 
     def __str__(self):
         return self.title
